@@ -1,0 +1,165 @@
+/* General styling for all elements */
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Lobster', cursive;
+}
+
+/* Game background */
+.game {
+    background-image: url(images/back.jpeg);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+/* Start screen styles */
+.startScreen {
+    width: 200px;
+    height: 30px;
+    line-height: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    margin: auto;
+    background-color: rgb(43, 205, 226);
+    text-align: center;
+    border-bottom: 2px solid rgb(132, 197, 197);
+}
+/* Adjust game area for smaller screens */
+@media (max-width: 768px) {
+    .gameArea {
+        width: 100%; /* Make the game area full-width on small screens */
+        height: 80vh; /* Adjust height based on viewport */
+    }
+
+    .score, .highScore {
+        width: 150px; /* Smaller score box on mobile */
+        font-size: 1em;
+    }
+}
+.gameArea {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    height: 80vh;
+    background-color: rgb(32, 32, 32);
+    position: relative;
+}
+
+/* Score styling */
+.score, .highScore {
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    text-align: center;
+    background-color: rgb(100, 224, 156);
+    width: 200px;
+    color: rgb(59, 40, 40);
+    line-height: 40px;
+    border-radius: 4px;
+    font-size: 1.2em;
+}
+
+/* Click to start button style */
+.ClickToStart {
+    cursor: pointer;
+}
+
+/* Game area */
+.gameArea {
+    height: 100vh;
+    width: 400px;
+    margin: auto;
+    position: relative;
+    background-color: rgb(32, 32, 32);
+    overflow: hidden;
+    border-left: 4px dashed white;
+    border-right: 4px dashed white;
+}
+
+/* Car styling - Player's car */
+.car {
+    width: 50px;
+    height: 80px;
+    position: absolute;
+    top: 520px;
+    left: 175px;  /* Center the car horizontally in the game area */
+    background-color: #00ff00; /* Bright green color for player's car */
+    border-radius: 8px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Front bumper (car front) */
+.car::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    width: 30px;
+    height: 10px;
+    background-color: #007F00;
+    border-radius: 5px 5px 0 0;
+}
+
+/* Rear bumper (car back) */
+.car::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 10px;
+    width: 30px;
+    height: 10px;
+    background-color: #007F00;
+    border-radius: 0 0 5px 5px;
+}
+
+/* Opponent car styling */
+.Opponents {
+    width: 50px;
+    height: 80px;
+    position: absolute;
+    top: 520px;
+    background-color: #ff0000; /* Red for opponent's car */
+    border-radius: 8px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Front bumper (opponent's car front) */
+.Opponents::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    width: 30px;
+    height: 10px;
+    background-color: #7F0000;
+    border-radius: 5px 5px 0 0;
+}
+
+/* Rear bumper (opponent's car back) */
+.Opponents::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 10px;
+    width: 30px;
+    height: 10px;
+    background-color: #7F0000;
+    border-radius: 0 0 5px 5px;
+}
+
+/* Road lines */
+.roadLines {
+    height: 100px;
+    width: 10px;
+    background-color: white;
+    position: absolute;
+    margin-left: 195px; /* Center the road lines */
+}
+
+/* Hide elements */
+.hide {
+    display: none;
+}

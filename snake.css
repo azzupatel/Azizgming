@@ -1,0 +1,203 @@
+/* General Styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    flex-direction: column;
+    position: relative;
+}
+
+/* Home Page Styling */
+.page {
+    display: none;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+/* Video Background Styling */
+video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;  /* Ensures the video fills the background */
+    z-index: -1;  /* Send the video to the background */
+}
+
+/* Home Page */
+#homePage {
+    display: block;
+    color: #fff;
+}
+
+h1 {
+    font-size: 3em;
+    color: #f5f5f5;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+    margin-bottom: 20px;
+}
+
+#snakeLogo {
+    margin: 50px auto;
+    position: relative;
+    width: 300px;
+    height: 100px;
+    transform-style: preserve-3d;
+    animation: rotateLogo 3s infinite linear;
+}
+
+.snake-logo .snake {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #00ff00;
+    border-radius: 80%;
+    box-shadow: 0 0 10px rgba(0, 255, 234, 0.7);
+}
+
+/* Button Styling */
+button {
+    font-size: 1.2em;
+    padding: 10px 40px;
+    cursor: pointer;
+    background-color: #2bff00;
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 50px;
+    margin-top: 10%;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #00b3a4;
+}
+
+/* Game Page (Star Wars Theme) */
+#gamePage {
+    position: static;
+    height: 500px;
+    width: 600px;
+    perspective: 1000px;
+    overflow: hidden;
+}
+
+/* Score (Positioned Outside the Grid) */
+.score {
+    position: fixed;  /* Make sure the score stays fixed on the screen */
+    top: 20px;         /* Position it near the top of the screen */
+    left: 20px;        /* Position it on the left side of the screen */
+    font-size: 20px;
+    font-weight: bold;
+    color: #25f30a;
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.5);  /* Optional: Add a semi-transparent background */
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+/* Snake Styling */
+.snake {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: green;
+    transition: all 0.1s ease;
+}
+
+/* Food Styling */
+.food {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: red;
+    border-radius: 50%;
+}
+
+/* Game Over Dialog Styling */
+.dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    display: none;
+    text-align: center;
+}
+
+.dialog button {
+    margin-top: 10px;
+    background-color: #007BFF;
+    color: white;
+}
+
+.dialog button:hover {
+    background-color: #0056b3;
+}
+
+/* Star Wars Lighting Effect */
+@keyframes rotateLogo {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Footer Styling (Positioned Outside the Grid) */
+.footer {
+    position: fixed;  /* Ensure the footer stays fixed at the bottom */
+    bottom: 10px;      /* Position it 10px from the bottom of the screen */
+    width: 100%;
+    text-align: center;
+    font-size: 0.9em;
+    color: #fff;
+    opacity: 0.8;
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.5);  /* Optional: Add a semi-transparent background */
+}
+/* Adjust game area for smaller screens */
+@media (max-width: 768px) {
+    .gameArea {
+        width: 100%; /* Make the game area full-width on small screens */
+        height: 80vh; /* Adjust height based on viewport */
+    }
+
+    .score, .highScore {
+        width: 150px; /* Smaller score box on mobile */
+        font-size: 1em;
+    }
+}
+.gameArea {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    height: 80vh;
+    background-color: rgb(32, 32, 32);
+    position: relative;
+}
+.footer a {
+    color: #00ff00;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.footer a:hover {
+    color: #ffcc00;
+}
