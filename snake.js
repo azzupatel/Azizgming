@@ -1,3 +1,12 @@
+// Prevent scroll and pull-to-refresh on mobile
+document.body.addEventListener('touchstart', function (e) {
+  if (e.touches.length > 1) return; // allow multi-touch gestures like zoom
+  e.preventDefault();
+}, { passive: false });
+
+document.body.addEventListener('touchmove', function (e) {
+  e.preventDefault();
+}, { passive: false });
 const gameArea = document.getElementById("gameArea");
 const scoreDisplay = document.getElementById("score");
 const finalScore = document.getElementById("finalScore");
