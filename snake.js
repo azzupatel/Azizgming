@@ -149,14 +149,17 @@ document.addEventListener("touchstart", function (e) {
     const touch = e.touches[0];
     touchStartX = touch.clientX;
     touchStartY = touch.clientY;
-}, false);
+    e.preventDefault(); // ✅ Prevent scrolling
+}, { passive: false });  // ⛔ VERY important to allow preventDefault()
 
 document.addEventListener("touchend", function (e) {
     const touch = e.changedTouches[0];
     touchEndX = touch.clientX;
     touchEndY = touch.clientY;
     handleSwipeGesture();
-}, false);
+    e.preventDefault(); // ✅ Prevent scrolling
+}, { passive: false });
+
 
 function handleSwipeGesture() {
     const dx = touchEndX - touchStartX;
