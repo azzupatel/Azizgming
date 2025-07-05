@@ -1,28 +1,35 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Snake Game</title>
-  <link rel="stylesheet" href="snake.css"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Responsive Snake Game</title>
+  <link rel="stylesheet" href="snake.css" />
 </head>
 <body>
-  <div class="score-panel">
-    <h1>Snake Game</h1>
-    <div id="score">Score: 0</div>
-  </div>
-
-  <div class="game-container">
-    <canvas id="gameCanvas" width="400" height="400"></canvas>
-  </div>
-
-  <div class="controls" id="mobileControls">
-    <button id="upBtn">⬆️</button>
-    <div>
-      <button id="leftBtn">⬅️</button>
-      <button id="downBtn">⬇️</button>
-      <button id="rightBtn">➡️</button>
+  <div class="container">
+    <div class="scoreboard">
+      <h2>Score: <span id="score">0</span></h2>
     </div>
+
+    <div class="game-wrapper">
+      <div id="gameArea" class="game-area"></div>
+
+      <div id="mobileControls" class="mobile-controls">
+        <button id="upButton">⬆️</button>
+        <div class="horizontal-controls">
+          <button id="leftButton">⬅️</button>
+          <button id="downButton">⬇️</button>
+          <button id="rightButton">➡️</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="gameOverDialog" class="dialog">
+    <h2>Game Over!</h2>
+    <p>Your score is: <span id="finalScore">0</span></p>
+    <button id="restartButton">Restart Game</button>
+    <button id="closeButton">Close</button>
   </div>
 
   <script src="snake.js"></script>
