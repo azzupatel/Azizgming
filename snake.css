@@ -1,68 +1,118 @@
 * {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-  background: #0f0f0f;
+  font-family: Arial, sans-serif;
+  background-color: #111;
   color: #fff;
-  font-family: "Segoe UI", sans-serif;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: start;
-  height: 100vh;
-  padding-top: 20px;
-}
-
-.score-panel {
-  text-align: center;
-  margin-bottom: 10px;
-}
-
-#score {
-  font-size: 1.2em;
-  margin-top: 5px;
-}
-
-.game-container {
+  overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100vh;
 }
 
-canvas {
-  border: 2px solid #0f0;
-  background-color: #111;
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 20px;
 }
 
-.controls {
-  margin-top: 20px;
+.scoreboard {
+  font-size: 1.5rem;
+  padding: 10px;
+  background-color: #222;
+  border: 2px solid #00ff00;
+  border-radius: 8px;
+}
+
+.game-wrapper {
+  position: relative;
+}
+
+.game-area {
+  width: 600px;
+  height: 500px;
+  background-color: #222;
+  position: relative;
+  border: 5px solid #00ff00;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.snake {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: #0f0;
+}
+
+.food {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: red;
+  border-radius: 50%;
+}
+
+.dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  display: none;
+  text-align: center;
+  z-index: 1000;
+}
+
+.mobile-controls {
   display: none;
   flex-direction: column;
   align-items: center;
+  margin-top: 10px;
 }
 
-.controls button {
-  background-color: #0f0;
-  color: #000;
-  font-size: 24px;
-  border: none;
-  padding: 10px 20px;
+.mobile-controls button {
+  font-size: 1.5rem;
+  padding: 10px;
   margin: 5px;
-  border-radius: 10px;
-  cursor: pointer;
+  border-radius: 8px;
+  border: none;
+  background-color: #00cc66;
+  color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
 }
 
-.controls div {
+.horizontal-controls {
   display: flex;
   gap: 10px;
 }
 
-/* Show controls only on mobile */
 @media (max-width: 768px) {
-  .controls {
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .game-area {
+    width: 90vw;
+    height: 70vh;
+  }
+
+  .scoreboard {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+
+  .mobile-controls {
     display: flex;
   }
 }
