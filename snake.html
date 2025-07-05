@@ -1,64 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Snake Game</title>
-    <link rel="stylesheet" href="snake.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Snake Game</title>
+  <link rel="stylesheet" href="snake.css"/>
 </head>
 <body>
+  <div class="score-panel">
+    <h1>Snake Game</h1>
+    <div id="score">Score: 0</div>
+  </div>
 
-    <!-- Home Page -->
-    <div id="homePage" class="page">
-        <video autoplay muted loop id="videoBackgroundHome">
-            <source src="snake.mp4" type="video/mp4">
-        </video>
-        <h1>Welcome to the 3D Snake Game!</h1>
-        <div id="snakeLogo" class="snake-logo">
-            <div class="snake"></div>
-        </div>
-        <button id="startGameButton">Start Game</button>
-        <footer class="footer">
-            Designed by <a href="https://www.instagram.com/patel_bro's_tech" target="_blank">@patel_bro's_tech</a>
-        </footer>
+  <div class="game-container">
+    <canvas id="gameCanvas" width="400" height="400"></canvas>
+  </div>
+
+  <div class="controls" id="mobileControls">
+    <button id="upBtn">⬆️</button>
+    <div>
+      <button id="leftBtn">⬅️</button>
+      <button id="downBtn">⬇️</button>
+      <button id="rightBtn">➡️</button>
     </div>
+  </div>
 
-    <!-- Game Page -->
-    <div id="gamePage" class="page">
-        <!-- Video Background -->
-        <video autoplay muted loop id="videoBackgroundGame">
-            <source src="snake.mp4" type="video/mp4">
-        </video>
-
-        <!-- Score Display -->
-        <div class="score" id="score">Score: 0</div>
-
-        <!-- Game Area -->
-        <div class="game-area" id="gameArea"></div>
-
-        <!-- Mobile Controls -->
-        <div id="mobileControls" class="mobile-controls">
-            <button id="upButton">⬆️</button>
-            <div class="direction-row">
-                <button id="leftButton">⬅️</button>
-                <button id="downButton">⬇️</button>
-                <button id="rightButton">➡️</button>
-            </div>
-        </div>
-
-        <footer class="footer">
-            Designed by <a href="https://www.instagram.com/patel_bro's_tech" target="_blank">@patel_bro's_tech</a>
-        </footer>
-    </div>
-
-    <!-- Game Over Dialog -->
-    <div id="gameOverDialog" class="dialog">
-        <h2>Game Over!</h2>
-        <p>Your score is: <span id="finalScore">0</span></p>
-        <button id="restartButton">Restart Game</button>
-        <button id="closeButton"><a href="index.html">Close Game</a></button>
-    </div>
-
-    <script src="snake.js"></script>
+  <script src="snake.js"></script>
 </body>
 </html>
