@@ -4,15 +4,15 @@
   box-sizing: border-box;
 }
 
-body {
+html, body {
+  height: 100%;
+  overflow: hidden; /* Prevent scrolling */
   font-family: Arial, sans-serif;
   background-color: #111;
   color: #fff;
-  overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
 }
 
 .container {
@@ -20,11 +20,13 @@ body {
   flex-direction: row;
   align-items: flex-start;
   gap: 20px;
+  flex-wrap: wrap;
+  padding: 20px;
 }
 
 .scoreboard {
   font-size: 1.5rem;
-  padding: 10px;
+  padding: 10px 20px;
   background-color: #222;
   border: 2px solid #00ff00;
   border-radius: 8px;
@@ -73,38 +75,11 @@ body {
   z-index: 1000;
 }
 
-.mobile-controls {
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 10px;
-}
-
-.mobile-controls button {
-  font-size: 1.5rem;
-  padding: 10px;
-  margin: 5px;
-  border-radius: 8px;
-  border: none;
-  background-color: #00cc66;
-  color: white;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-}
-
-.horizontal-controls {
-  display: flex;
-  gap: 10px;
-}
-
+/* Responsive Design */
 @media (max-width: 768px) {
   .container {
     flex-direction: column;
     align-items: center;
-  }
-
-  .game-area {
-    width: 90vw;
-    height: 70vh;
   }
 
   .scoreboard {
@@ -112,7 +87,8 @@ body {
     margin-bottom: 10px;
   }
 
-  .mobile-controls {
-    display: flex;
+  .game-area {
+    width: 90vw;
+    height: 70vh;
   }
 }
