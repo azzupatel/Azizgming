@@ -4,10 +4,6 @@ const finalScore = document.getElementById("finalScore");
 const gameOverDialog = document.getElementById("gameOverDialog");
 const restartButton = document.getElementById("restartButton");
 const closeButton = document.getElementById("closeButton");
-const upButton = document.getElementById("upButton");
-const downButton = document.getElementById("downButton");
-const leftButton = document.getElementById("leftButton");
-const rightButton = document.getElementById("rightButton");
 
 const gridSize = 20;
 const cols = 30;
@@ -22,15 +18,21 @@ let gameInterval;
 let gameSpeed = 200;
 
 function createFood() {
-  const x = Math.floor(Math.random() * cols);
-  const y = Math.floor(Math.random() * rows);
-  food = { x, y };
+  let validPosition = false;
+  while (!validPosition) {
+    const x = Math.floor(Math.random() * cols);
+    const y = Math.floor(Math.random() * rows);
+    if (!snake.some(part => part.x === x && part.y === y)) {
+      food = { x, y };
+      validPosition = true;
+    }
+  }
 
   if (foodElement) foodElement.remove();
   foodElement = document.createElement("div");
   foodElement.classList.add("food");
-  foodElement.style.left = `${x * gridSize}px`;
-  foodElement.style.top = `${y * gridSize}px`;
+  foodElement.style.left = `${food.x * gridSize}px`;
+  foodElement.style.top = `${food.y * gridSize}px`;
   gameArea.appendChild(foodElement);
 }
 
@@ -53,6 +55,15 @@ function moveSnake() {
   if (direction === "LEFT") head.x--;
   if (direction === "RIGHT") head.x++;
 
+  if (
+    head.x < 0 || head.x >= cols ||
+    head.y < 0 || head.y >= rows ||
+    snake.some(part => part.x === head.x && part.y === head.y)
+  ) {
+    endGame();
+    return;
+  }
+
   snake.unshift(head);
 
   if (head.x === food.x && head.y === food.y) {
@@ -60,14 +71,6 @@ function moveSnake() {
     createFood();
   } else {
     snake.pop();
-  }
-
-  if (
-    head.x < 0 || head.x >= cols ||
-    head.y < 0 || head.y >= rows ||
-    snake.slice(1).some(part => part.x === head.x && part.y === head.y)
-  ) {
-    endGame();
   }
 
   scoreDisplay.textContent = score;
@@ -85,6 +88,7 @@ function startGame() {
   gameInterval = setInterval(() => {
     if (!gameOver) moveSnake();
   }, gameSpeed);
+  document.body.focus();
 }
 
 function endGame() {
@@ -103,20 +107,6 @@ closeButton.addEventListener("click", () => {
   window.location.reload();
 });
 
-// Direction controls
-upButton.addEventListener("click", () => {
-  if (direction !== "DOWN") direction = "UP";
-});
-downButton.addEventListener("click", () => {
-  if (direction !== "UP") direction = "DOWN";
-});
-leftButton.addEventListener("click", () => {
-  if (direction !== "RIGHT") direction = "LEFT";
-});
-rightButton.addEventListener("click", () => {
-  if (direction !== "LEFT") direction = "RIGHT";
-});
-
 document.addEventListener("keydown", (e) => {
   if (e.key === "ArrowUp" && direction !== "DOWN") direction = "UP";
   if (e.key === "ArrowDown" && direction !== "UP") direction = "DOWN";
@@ -124,5 +114,35 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "ArrowRight" && direction !== "LEFT") direction = "RIGHT";
 });
 
+// Swipe gesture support for mobile
+let touchStartX = 0;
+let touchStartY = 0;
+let touchEndX = 0;
+let touchEndY = 0;
+
+document.addEventListener("touchstart", function (e) {
+  const touch = e.touches[0];
+  touchStartX = touch.clientX;
+  touchStartY = touch.clientY;
+}, { passive: true });
+
+document.addEventListener("touchend", function (e) {
+  const touch = e.changedTouches[0];
+  touchEndX = touch.clientX;
+  touchEndY = touch.clientY;
+  handleSwipeGesture();
+}, { passive: true });
+
+function handleSwipeGesture() {
+  const dx = touchEndX - touchStartX;
+  const dy = touchEndY - touchStartY;
+  if (Math.abs(dx) > Math.abs(dy)) {
+    if (dx > 30 && direction !== "LEFT") direction = "RIGHT";
+    else if (dx < -30 && direction !== "RIGHT") direction = "LEFT";
+  } else {
+    if (dy > 30 && direction !== "UP") direction = "DOWN";
+    else if (dy < -30 && direction !== "DOWN") direction = "UP";
+  }
+}
+
 startGame();
-document.body.focus();
