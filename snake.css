@@ -237,4 +237,40 @@ button:hover {
     #gamePage {
         aspect-ratio: 3 / 4; /* Taller for portrait screens */
     }
+    /* Mobile Controls */
+.mobile-controls {
+    position: fixed;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: none; /* Only show on mobile */
+    flex-direction: column;
+    align-items: center;
+    z-index: 999;
+    gap: 10px;
+}
+
+.mobile-controls button {
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+    border: none;
+    border-radius: 50%;
+    background-color: #2bff00;
+    color: black;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.mobile-controls button:hover {
+    background-color: #00b3a4;
+}
+
+@media (max-width: 768px) {
+    .mobile-controls {
+        display: flex;
+    }
+}
+
 }
