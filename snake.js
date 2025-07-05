@@ -125,3 +125,4 @@ document.addEventListener("keydown", (e) => {
 });
 
 startGame();
+document.body.focus();
