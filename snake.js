@@ -8,6 +8,13 @@ const scoreDisplay = document.getElementById("score");
 const finalScore = document.getElementById("finalScore");
 const gameArea = document.getElementById("gameArea");
 
+// Mobile control buttons
+const upButton = document.getElementById("upButton");
+const downButton = document.getElementById("downButton");
+const leftButton = document.getElementById("leftButton");
+const rightButton = document.getElementById("rightButton");
+const mobileControls = document.getElementById("mobileControls");
+
 const gridSize = 20;
 const rows = 25;
 const cols = 30;
@@ -28,6 +35,14 @@ const gameOverSound = new Audio("https://www.soundjay.com/button/beep-10.wav");
 startGameButton.addEventListener("click", () => {
     homePage.style.display = "none";
     gamePage.style.display = "block";
+
+    // Show mobile controls only on smaller screens
+    if (window.innerWidth <= 768) {
+        mobileControls.style.display = "flex";
+    } else {
+        mobileControls.style.display = "none";
+    }
+
     startGame();
 });
 
@@ -76,9 +91,7 @@ function createFood() {
     const y = Math.floor(Math.random() * rows);
     food = { x, y };
 
-    if (foodElement) {
-        foodElement.remove();
-    }
+    if (foodElement) foodElement.remove();
 
     foodElement = document.createElement('div');
     foodElement.classList.add('food');
@@ -131,7 +144,7 @@ function showGameOverDialog() {
     gameOverDialog.style.display = "block";
 }
 
-// Keyboard control
+// Keyboard control (desktop)
 document.addEventListener("keydown", (event) => {
     if (event.key === "ArrowUp" && direction !== "DOWN") direction = "UP";
     if (event.key === "ArrowDown" && direction !== "UP") direction = "DOWN";
@@ -139,40 +152,19 @@ document.addEventListener("keydown", (event) => {
     if (event.key === "ArrowRight" && direction !== "LEFT") direction = "RIGHT";
 });
 
-// Swipe gesture control (mobile)
-let touchStartX = 0;
-let touchStartY = 0;
-let touchEndX = 0;
-let touchEndY = 0;
-
-document.addEventListener("touchstart", function (e) {
-    const touch = e.touches[0];
-    touchStartX = touch.clientX;
-    touchStartY = touch.clientY;
-    e.preventDefault(); // ✅ Prevent scrolling
-}, { passive: false });  // ⛔ VERY important to allow preventDefault()
-
-document.addEventListener("touchend", function (e) {
-    const touch = e.changedTouches[0];
-    touchEndX = touch.clientX;
-    touchEndY = touch.clientY;
-    handleSwipeGesture();
-    e.preventDefault(); // ✅ Prevent scrolling
-}, { passive: false });
-
-
-function handleSwipeGesture() {
-    const dx = touchEndX - touchStartX;
-    const dy = touchEndY - touchStartY;
-
-    if (Math.abs(dx) > Math.abs(dy)) {
-        if (dx > 30 && direction !== "LEFT") direction = "RIGHT";
-        else if (dx < -30 && direction !== "RIGHT") direction = "LEFT";
-    } else {
-        if (dy > 30 && direction !== "UP") direction = "DOWN";
-        else if (dy < -30 && direction !== "DOWN") direction = "UP";
-    }
-}
+// Button control (mobile)
+upButton.addEventListener("click", () => {
+    if (direction !== "DOWN") direction = "UP";
+});
+downButton.addEventListener("click", () => {
+    if (direction !== "UP") direction = "DOWN";
+});
+leftButton.addEventListener("click", () => {
+    if (direction !== "RIGHT") direction = "LEFT";
+});
+rightButton.addEventListener("click", () => {
+    if (direction !== "LEFT") direction = "RIGHT";
+});
 
 // Start game
 function startGame() {
@@ -189,4 +181,3 @@ function startGame() {
     createGrid();
     createFood();
 }
-
