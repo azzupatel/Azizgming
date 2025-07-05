@@ -4,46 +4,46 @@ const gamePage = document.getElementById("gamePage");
 const gameOverDialog = document.getElementById("gameOverDialog");
 const restartButton = document.getElementById("restartButton");
 const closeButton = document.getElementById("closeButton");
-const scoreDisplay = document.getElementById("score");  // This is outside the grid
+const scoreDisplay = document.getElementById("score");
 const finalScore = document.getElementById("finalScore");
 const gameArea = document.getElementById("gameArea");
 
-const gridSize = 20;  // Each grid block will be 20px
-const rows = 25;  // Number of rows
-const cols = 30;  // Number of columns
+const gridSize = 20;
+const rows = 25;
+const cols = 30;
 let snake = [{ x: 10, y: 10 }];
 let direction = "RIGHT";
 let food = null;
-let foodElement = null;  // Store reference to food element
+let foodElement = null;
 let score = 0;
 let gameOver = false;
 let gameInterval;
-let gameSpeed = 200;  // Medium speed (200ms interval)
+let gameSpeed = 200;
 
 // Sound Effects
 const eatSound = new Audio("https://www.soundjay.com/button/beep-07.wav");
 const gameOverSound = new Audio("https://www.soundjay.com/button/beep-10.wav");
 
-// Home Page: Start Game
+// Start Game
 startGameButton.addEventListener("click", () => {
     homePage.style.display = "none";
     gamePage.style.display = "block";
     startGame();
 });
 
-// Game Over Dialog: Restart or Close Game
+// Restart or Close
 restartButton.addEventListener("click", () => {
     gameOverDialog.style.display = "none";
     startGame();
 });
 
 closeButton.addEventListener("click", () => {
-    window.location.reload();  // Reload the page (close the game)
+    window.location.reload();
 });
 
-// Create the game grid
+// Create grid
 function createGrid() {
-    gameArea.innerHTML = ''; // Clear the game area
+    gameArea.innerHTML = '';
     for (let row = 0; row < rows; row++) {
         for (let col = 0; col < cols; col++) {
             const div = document.createElement('div');
@@ -58,10 +58,10 @@ function createGrid() {
     }
 }
 
-// Render the snake
+// Render snake
 function renderSnake() {
     const snakeElements = document.querySelectorAll('.snake');
-    snakeElements.forEach(element => element.remove()); // Remove previous snake
+    snakeElements.forEach(element => element.remove());
     snake.forEach(segment => {
         const snakeElement = document.createElement('div');
         snakeElement.classList.add('snake');
@@ -72,70 +72,66 @@ function renderSnake() {
 
 // Create food
 function createFood() {
-    // Random position for the food
     const x = Math.floor(Math.random() * cols);
     const y = Math.floor(Math.random() * rows);
     food = { x, y };
 
-    // Remove old food if it exists
     if (foodElement) {
         foodElement.remove();
     }
 
-    // Create new food element
     foodElement = document.createElement('div');
     foodElement.classList.add('food');
     foodElement.style.transform = `translate3d(${food.x * gridSize}px, ${food.y * gridSize}px, 0)`;
     gameArea.appendChild(foodElement);
 }
 
-// Move the snake
+// Move snake
 function moveSnake() {
     const head = { ...snake[0] };
-    
-    // Move the snake in the current direction
+
     if (direction === "UP") head.y--;
     if (direction === "DOWN") head.y++;
     if (direction === "LEFT") head.x--;
     if (direction === "RIGHT") head.x++;
 
-    snake.unshift(head);  // Add new head to the snake
+    snake.unshift(head);
 
-    // Check if the snake eats food
     if (head.x === food.x && head.y === food.y) {
-        score += 10;  // Increase score by 10
-        eatSound.play();  // Play eat sound
-        createFood();  // Create new food
+        score += 10;
+        eatSound.play();
+        createFood();
     } else {
-        snake.pop();  // Remove last part of snake if no food eaten
+        snake.pop();
     }
 
-    // Check for collision with walls or self
-    if (head.x < 0 || head.x >= cols || head.y < 0 || head.y >= rows || snake.slice(1).some(segment => segment.x === head.x && segment.y === head.y)) {
+    if (
+        head.x < 0 || head.x >= cols ||
+        head.y < 0 || head.y >= rows ||
+        snake.slice(1).some(segment => segment.x === head.x && segment.y === head.y)
+    ) {
         gameOver = true;
-        gameOverSound.play();  // Play game over sound
-        clearInterval(gameInterval);  // Stop the game
+        gameOverSound.play();
+        clearInterval(gameInterval);
         showGameOverDialog();
     }
 
-    // Update the score display
     scoreDisplay.textContent = `Score: ${score}`;
 
-    // Increase speed as score increases (difficulty level)
     if (score % 50 === 0 && gameSpeed > 100) {
-        gameSpeed -= 10;  // Increase speed, but keep it reasonable
-        clearInterval(gameInterval);  // Stop the previous interval
-        startGame();  // Restart the game with new speed
+        gameSpeed -= 10;
+        clearInterval(gameInterval);
+        startGame();
     }
 }
 
-// Show Game Over Dialog
+// Show game over
 function showGameOverDialog() {
     finalScore.textContent = score;
     gameOverDialog.style.display = "block";
 }
 
-// Listen for keyboard events to control snake direction
+// Keyboard control
 document.addEventListener("keydown", (event) => {
     if (event.key === "ArrowUp" && direction !== "DOWN") direction = "UP";
     if (event.key === "ArrowDown" && direction !== "UP") direction = "DOWN";
@@ -143,7 +139,39 @@ document.addEventListener("keydown", (event) => {
     if (event.key === "ArrowRight" && direction !== "LEFT") direction = "RIGHT";
 });
 
-// Start the game
+// Swipe gesture control (mobile)
+let touchStartX = 0;
+let touchStartY = 0;
+let touchEndX = 0;
+let touchEndY = 0;
+
+document.addEventListener("touchstart", function (e) {
+    const touch = e.touches[0];
+    touchStartX = touch.clientX;
+    touchStartY = touch.clientY;
+}, false);
+
+document.addEventListener("touchend", function (e) {
+    const touch = e.changedTouches[0];
+    touchEndX = touch.clientX;
+    touchEndY = touch.clientY;
+    handleSwipeGesture();
+}, false);
+
+function handleSwipeGesture() {
+    const dx = touchEndX - touchStartX;
+    const dy = touchEndY - touchStartY;
+
+    if (Math.abs(dx) > Math.abs(dy)) {
+        if (dx > 30 && direction !== "LEFT") direction = "RIGHT";
+        else if (dx < -30 && direction !== "RIGHT") direction = "LEFT";
+    } else {
+        if (dy > 30 && direction !== "UP") direction = "DOWN";
+        else if (dy < -30 && direction !== "DOWN") direction = "UP";
+    }
+}
+
+// Start game
 function startGame() {
     snake = [{ x: 10, y: 10 }];
     direction = "RIGHT";
@@ -154,7 +182,8 @@ function startGame() {
             moveSnake();
             renderSnake();
         }
-    }, gameSpeed);  // Start the game with the current speed
+    }, gameSpeed);
     createGrid();
     createFood();
 }
+
