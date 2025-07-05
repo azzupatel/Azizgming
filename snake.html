@@ -7,12 +7,11 @@
     <link rel="stylesheet" href="snake.css">
 </head>
 <body>
+
     <!-- Home Page -->
     <div id="homePage" class="page">
-        <!-- Video Background for Home Page -->
         <video autoplay muted loop id="videoBackgroundHome">
             <source src="snake.mp4" type="video/mp4">
-            <!-- If mp4 is not supported, you can add other video formats like webm or ogg -->
         </video>
         <h1>Welcome to the 3D Snake Game!</h1>
         <div id="snakeLogo" class="snake-logo">
@@ -26,26 +25,27 @@
 
     <!-- Game Page -->
     <div id="gamePage" class="page">
-        <div>
-            <div>
-                <div class="score" id="score">Score: 0</div>
-            </div>
-            <div id="mobileControls" class="mobile-controls">
-  <button id="upButton">⬆️</button>
-  <div>
-    <button id="leftButton">⬅️</button>
-    <button id="downButton">⬇️</button>
-    <button id="rightButton">➡️</button>
-  </div>
-</div>
-
-        </div>
-        <!-- Video Background for Game Page -->
+        <!-- Video Background -->
         <video autoplay muted loop id="videoBackgroundGame">
             <source src="snake.mp4" type="video/mp4">
         </video>
-       
+
+        <!-- Score Display -->
+        <div class="score" id="score">Score: 0</div>
+
+        <!-- Game Area -->
         <div class="game-area" id="gameArea"></div>
+
+        <!-- Mobile Controls -->
+        <div id="mobileControls" class="mobile-controls">
+            <button id="upButton">⬆️</button>
+            <div class="direction-row">
+                <button id="leftButton">⬅️</button>
+                <button id="downButton">⬇️</button>
+                <button id="rightButton">➡️</button>
+            </div>
+        </div>
+
         <footer class="footer">
             Designed by <a href="https://www.instagram.com/patel_bro's_tech" target="_blank">@patel_bro's_tech</a>
         </footer>
