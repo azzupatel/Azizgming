@@ -5,6 +5,7 @@
 }
 
 html, body {
+  touch-action: none; /* Disables scroll, zoom, and pull-to-refresh */
   height: 100%;
   overflow: hidden; /* Prevent scrolling */
   font-family: Arial, sans-serif;
