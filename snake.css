@@ -1,95 +1,190 @@
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html, body {
-  touch-action: none; /* Disables scroll, zoom, and pull-to-refresh */
-  height: 100%;
-  overflow: hidden; /* Prevent scrolling */
-  font-family: Arial, sans-serif;
-  background-color: #111;
-  color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.container {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  gap: 20px;
-  flex-wrap: wrap;
-  padding: 20px;
-}
-
-.scoreboard {
-  font-size: 1.5rem;
-  padding: 10px 20px;
-  background-color: #222;
-  border: 2px solid #00ff00;
-  border-radius: 8px;
-}
-
-.game-wrapper {
-  position: relative;
-}
-
-.game-area {
-  width: 600px;
-  height: 500px;
-  background-color: #222;
-  position: relative;
-  border: 5px solid #00ff00;
-  border-radius: 10px;
-  overflow: hidden;
-}
-
-.snake {
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  background-color: #0f0;
-}
-
-.food {
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  background-color: red;
-  border-radius: 50%;
-}
-
-.dialog {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: rgba(0, 0, 0, 0.9);
-  color: white;
-  padding: 20px;
-  border-radius: 10px;
-  display: none;
-  text-align: center;
-  z-index: 1000;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .container {
-    flex-direction: column;
-    align-items: center;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
   }
-
-  .scoreboard {
-    font-size: 1.2rem;
-    margin-bottom: 10px;
+  
+  html, body {
+    touch-action: none;
+    height: 100%;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    background-color: #000;
+    color: #fff;
   }
-
+  
+  /* Common Page Styling */
+  .page {
+    display: none;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+  
+  #homePage {
+    display: block;
+    color: #fff;
+  }
+  
+  video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+  }
+  
+  h1 {
+    font-size: 2.5em;
+    margin-top: 40px;
+    text-shadow: 2px 2px 5px #000;
+  }
+  
+  .snake-logo {
+    width: 200px;
+    height: 80px;
+    margin: 30px auto;
+    animation: rotateLogo 3s infinite linear;
+  }
+  
+  .snake-logo .snake {
+    width: 100%;
+    height: 100%;
+    background-color: #0f0;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #0ff;
+  }
+  
+  button {
+    font-size: 1.2em;
+    padding: 10px 40px;
+    cursor: pointer;
+    background-color: #2bff00;
+    color: black;
+    border: none;
+    border-radius: 50px;
+    margin-top: 20px;
+  }
+  
+  button:hover {
+    background-color: #00b3a4;
+  }
+  
+  /* Score Styling */
+  .score {
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 18px;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 5px 10px;
+    border-radius: 5px;
+    z-index: 10;
+  }
+  
+  /* Game Area Styling */
   .game-area {
-    width: 90vw;
-    height: 70vh;
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    aspect-ratio: 30 / 25;
+    background-color: #222;
+    margin: 0 auto;
+    z-index: 1;
   }
-}
+  
+  /* Snake and Food */
+  .snake {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: green;
+  }
+  
+  .food {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: red;
+    border-radius: 50%;
+  }
+  
+  /* Dialog */
+  .dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0,0,0,0.8);
+    padding: 20px;
+    border-radius: 10px;
+    display: none;
+    z-index: 20;
+  }
+  
+  /* Footer */
+  .footer {
+    position: fixed;
+    bottom: 10px;
+    width: 100%;
+    text-align: center;
+    font-size: 0.9em;
+    color: #fff;
+    opacity: 0.8;
+    z-index: 10;
+  }
+  
+  .footer a {
+    color: #0f0;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  
+  .footer a:hover {
+    color: #ff0;
+  }
+  
+  /* Mobile Controls */
+  .mobile-controls {
+    display: none;
+    margin-top: 20px;
+    text-align: center;
+    z-index: 10;
+  }
+  
+  .control-btn {
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+    margin: 5px;
+    border: none;
+    border-radius: 10px;
+    background-color: #333;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+  }
+  
+  .control-btn:active {
+    background-color: #555;
+  }
+  
+  /* Responsive Mobile View */
+  @media (max-width: 768px) {
+    #gamePage {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding-top: 60px;
+      height: 100vh;
+    }
+  
+    .mobile-controls {
+      display: block;
+    }
+  }
+  
